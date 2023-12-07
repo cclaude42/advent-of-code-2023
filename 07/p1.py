@@ -7,10 +7,9 @@ def main():
 
         for l in f.readlines():
             hand, bid = l.split()
-            hand_nums = [cards.index(c) for c in hand]
-            hand_dict = { c: hand_nums.count(c) for c in hand_nums }
 
-            # Start by assigning a meta-score to a hand by
+            # Start by assigning a meta-score to a hand by computing its duplicates
+            hand_dict = { c: hand.count(c) for c in hand }
             match len(hand_dict):
                 # All five
                 case 1:
@@ -35,6 +34,7 @@ def main():
                     meta_score = 0
 
             # Then iterate through cards, multiplying score and appending, like you would do in an atoi
+            hand_nums = [cards.index(c) for c in hand]
             for card in hand_nums:
                 meta_score = meta_score * 13 + card
 
