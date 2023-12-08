@@ -18,17 +18,17 @@ def get_primes(cycle):
 
 
 def compute_cycle(nodemap, instructions, node):
-    states = []
-    ncopy = node
-    nsteps = 0
-    ilen = len(instructions)
+    node = nodemap[node][instructions[1]]
+    saved_state = (node, 1)
+    node = nodemap[node][instructions[2]]
 
-    while not (ncopy, nsteps % ilen) in states:
-        states.append((ncopy, nsteps % ilen))
-        ncopy = nodemap[ncopy][instructions[nsteps % ilen]]
+    nsteps = 2
+    ilen = len(instructions)
+    while not (node, nsteps % ilen) == saved_state:
+        node = nodemap[node][instructions[nsteps % ilen]]
         nsteps += 1
 
-    return nsteps - states.index((ncopy, nsteps % ilen))
+    return nsteps - 1
 
 
 def main():
